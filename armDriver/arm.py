@@ -64,8 +64,16 @@ def setupMotors():
 def getNum(addr,args):
     global num
     #if args is not list: args = (args, )
-    num = args
+    num = int(args)
     print("Received: " + str(args))
+
+    if num == 1.0:
+        lowerDriver.clockwise(BASE, .75)
+    elif num == 2.0:
+        lowerDriver.counterClockwise(BASE, .75)
+    else:
+        print("number not changed")
+    num = 0
 
 
 def main():
@@ -76,11 +84,7 @@ def main():
     dis.map("/wek/outputs", getNum)
     server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
-
-    while True:
-        #lowerDriver.clockwise(BASE, .75)
-        time.sleep(.75)
-
+    
 
 if __name__ == "__main__":
     main()
