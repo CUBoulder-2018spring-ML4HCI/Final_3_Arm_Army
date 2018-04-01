@@ -12,7 +12,8 @@ import argparse
 import random
 import sys
 from pythonosc import osc_message_builder
-
+from pythonosc import dispatcher
+from pythonosc import osc_server
 
 
 
@@ -23,6 +24,7 @@ from pythonosc import osc_message_builder
 def sigint_handler(signum, frame):
     print("Cleaning Up GPIO pins")
     GPIO.cleanup()
+    sys.exit()
 
 signal.signal(signal.SIGINT, sigint_handler)
 
@@ -38,7 +40,7 @@ input_port = 12000
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
-global num = 0
+global num
 
 #Used For motor Names
 BASE = "base"
@@ -61,7 +63,7 @@ def setupMotors():
 
 def getNum(addr,args):
     global num
-    if args is not list: args = (args, )
+    #if args is not list: args = (args, )
     num = args
     print("Received: " + str(args))
 
@@ -70,13 +72,13 @@ def main():
     #some code
     setupMotors()
 
-    dispatcher = dispatcher.Dispatcher()
-    dispatcher.map("/wek/outputs", getNum)
-    server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dispatcher)
+    dis = dispatcher.Dispatcher()
+    dis.map("/wek/outputs", getNum)
+    server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
 
     while True:
-        lowerDriver.clockwise(BASE, .75)
+        #lowerDriver.clockwise(BASE, .75)
         time.sleep(.75)
 
 
