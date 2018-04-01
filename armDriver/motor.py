@@ -12,7 +12,7 @@ class motorDriver:
         GPIO.setup(self.stby, GPIO.OUT)
 
     def addMotor(self, name, pwm, in1,in2):
-        self.motor.append(motor(name, pwm, in1, in2))
+        self.motors.append(motor(name, pwm, in1, in2))
 
     '''
     ' The Stby pin on the motor driver when set to high
@@ -34,17 +34,17 @@ class motorDriver:
                 return motor
         return None
 
-    def clockwise(self, motorName, time):
+    def clockwise(self, motorName, sleepTime):
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
-            motor.clockwise(time)
+            motor.clockwise(sleepTime)
 
-    def counterClockwise(self, motorName, time):
+    def counterClockwise(self, motorName, sleepTime):
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
-            motor.counterClockwise(time)
+            motor.counterClockwise(sleepTime)
 
 
 class motor:
@@ -60,17 +60,17 @@ class motor:
         GPIO.setup(self.in1, GPIO.OUT) # IN1
         GPIO.setup(self.in2, GPIO.OUT) # IN2
 
-    def clockwise(self, time):
+    def clockwise(self, sleepTime):
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2, GPIO.HIGH)
         GPIO.output(self.pwm, GPIO.HIGH)
-        time.sleep(time)
-        GPIO.output(self.pwn, GPIO.LOW)
+        time.sleep(sleepTime)
+        GPIO.output(self.pwm, GPIO.LOW)
 
 
-    def counterClockwise(self, time):
+    def counterClockwise(self, sleepTime):
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
         GPIO.output(self.pwm, GPIO.HIGH)
-        time.sleep(time)
+        time.sleep(sleepTime)
         GPIO.output(self.pwm, GPIO.LOW)

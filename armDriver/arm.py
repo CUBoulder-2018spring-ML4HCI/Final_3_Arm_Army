@@ -4,7 +4,10 @@
 import time
 import signal
 import RPi.GPIO as GPIO
-import motor
+from motor import motorDriver
+from motor import motor
+
+
 
 '''
 ' Code needed to hangle ctrl+c exit
@@ -17,8 +20,14 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 
-lowerDriver = None;
-higherDriver = None;
+#Used for the 2 motor drivers
+global lowerDriver
+higherDriver = None
+
+
+#Used For motor Names
+BASE = "base"
+
 
 def setup():
     #Declare The GPIO Settings
@@ -30,6 +39,7 @@ def setup():
     '   2) add motor A
     '   3) add motor B
     '''
+    global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
     lowerDriver.addMotor("base", 7, 12, 11)
 
@@ -38,8 +48,10 @@ def setup():
 def main():
     #some code
     setup()
+
     while True:
-        print(".")
+        lowerDriver.clockwise(BASE, .75)
+        time.sleep(.75)
 
 
 if __name__ == "__main__":
