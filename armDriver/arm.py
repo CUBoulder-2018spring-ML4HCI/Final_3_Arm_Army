@@ -7,6 +7,13 @@ import RPi.GPIO as GPIO
 from motor import motorDriver
 from motor import motor
 
+#osc imports
+import argparse
+import random
+import sys
+from pythonosc import osc_message_builder
+
+
 
 
 '''
@@ -20,16 +27,25 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 
+'''
+' OSC Set up
+' The arm right now is set up to only receive not
+'''
+input_host = "0.0.0.0"
+input_port = 12000
+
+
 #Used for the 2 motor drivers
 global lowerDriver
-higherDriver = None
-
+global higherDriver
+global num = 0
 
 #Used For motor Names
 BASE = "base"
 
 
-def setup():
+
+def setupMotors():
     #Declare The GPIO Settings
     GPIO.setmode(GPIO.BOARD)
 
@@ -43,11 +59,21 @@ def setup():
     lowerDriver = motorDriver("lowerMotors", 13)
     lowerDriver.addMotor("base", 7, 12, 11)
 
+def getNum(addr,args):
+    global num
+    if args is not list: args = (args, )
+    num = args
+    print("Received: " + str(args))
 
 
 def main():
     #some code
-    setup()
+    setupMotors()
+
+    dispatcher = dispatcher.Dispatcher()
+    dispatcher.map("/wek/outputs", getNum)
+    server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dispatcher)
+    server.serve_forever()
 
     while True:
         lowerDriver.clockwise(BASE, .75)
