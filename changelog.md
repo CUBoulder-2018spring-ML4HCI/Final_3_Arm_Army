@@ -33,3 +33,5 @@ We decided we will be creating a robotic arm that has a set of pre made motions 
 We experimented with Kinect because we thought that our robotic helper hand would fit perfectly on one's shoulder. Kinect would allow us to sense when a user is reaching for a the arm sitting on his or her shoulder by measuring the angle of the elbow.
 
 Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Currently one motor is being driven, and now the rest of the motors will be bootstrapped forward with the classes we already wrote.
+
+[Kinect Classification Video]("https://www.youtube.com/watch?v=aPeoNjqThVM")
