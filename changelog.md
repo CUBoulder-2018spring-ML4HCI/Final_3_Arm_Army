@@ -35,3 +35,6 @@ We experimented with Kinect because we thought that our robotic helper hand woul
 Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Currently one motor is being driven, and now the rest of the motors will be bootstrapped forward with the classes we already wrote.
 
 [Kinect Classification Video](https://www.youtube.com/watch?v=aPeoNjqThVM)
+
+
+[Connecting OSC Messages to Arm Movement](https://www.youtube.com/watch?v=1SC9NRHUd_s&feature=youtu.be)
