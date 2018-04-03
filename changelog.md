@@ -38,3 +38,8 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
 
 [Connecting OSC Messages to Arm Movement](https://www.youtube.com/watch?v=1SC9NRHUd_s&feature=youtu.be)
+
+## Week 3 - 4/2
+
+### Adding Of 2nd Motor
+  - Added Center Motor to the Software and wired it up to run - RC
