@@ -6,7 +6,7 @@ import sys
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 
-IP = "127.0.0.1"
+IP = "192.168.2.9"
 PORT = 12000
 OSC_MESSAGE = "/wek/outputs"
 

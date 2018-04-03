@@ -44,6 +44,7 @@ global num
 
 #Used For motor Names
 BASE = "base"
+CENTER = "center"
 
 
 
@@ -59,7 +60,9 @@ def setupMotors():
     '''
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
-    lowerDriver.addMotor("base", 7, 12, 11)
+    lowerDriver.addMotor(BASE, 7, 12, 11)
+    lowerDriver.addMotor(CENTER,29,15,16)
+
 
 def getNum(addr,args):
     global num
@@ -68,9 +71,13 @@ def getNum(addr,args):
     print("Received: " + str(args))
 
     if num == 1.0:
-        lowerDriver.clockwise(BASE, .75)
+        lowerDriver.clockwise(BASE)
+        lowerDriver.clockwise(CENTER)
+        time.sleep(.75)
+        lowerDriver.stopMotor(BASE)
+        lowerDriver.stopMotor(CENTER)
     elif num == 2.0:
-        lowerDriver.counterClockwise(BASE, .75)
+        lowerDriver.counterClockwise(BASE)
     else:
         print("number not changed")
     num = 0
@@ -84,7 +91,7 @@ def main():
     dis.map("/wek/outputs", getNum)
     server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
-    
+
 
 if __name__ == "__main__":
     main()

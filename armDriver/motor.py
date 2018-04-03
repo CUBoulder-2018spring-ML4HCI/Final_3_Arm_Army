@@ -34,18 +34,22 @@ class motorDriver:
                 return motor
         return None
 
-    def clockwise(self, motorName, sleepTime):
+    def clockwise(self, motorName):
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
             motor.clockwise(sleepTime)
 
-    def counterClockwise(self, motorName, sleepTime):
+    def counterClockwise(self, motorName):
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
             motor.counterClockwise(sleepTime)
 
+    def stopMotor(self, motorName):
+        motor = self.getMotorByName(motorName)
+        if motor != None:
+            motor.stopMotor(sleepTime)
 
 class motor:
     def __init__(self, name, pwm, in1, in2):
@@ -60,17 +64,15 @@ class motor:
         GPIO.setup(self.in1, GPIO.OUT) # IN1
         GPIO.setup(self.in2, GPIO.OUT) # IN2
 
-    def clockwise(self, sleepTime):
+    def clockwise(self):
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2, GPIO.HIGH)
         GPIO.output(self.pwm, GPIO.HIGH)
-        time.sleep(sleepTime)
-        GPIO.output(self.pwm, GPIO.LOW)
 
-
-    def counterClockwise(self, sleepTime):
+    def counterClockwise(self):
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
         GPIO.output(self.pwm, GPIO.HIGH)
-        time.sleep(sleepTime)
+
+    def stopMotor(self):
         GPIO.output(self.pwm, GPIO.LOW)

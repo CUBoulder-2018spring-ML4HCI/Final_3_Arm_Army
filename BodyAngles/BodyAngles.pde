@@ -153,8 +153,7 @@ void onNewUser(SimpleOpenNI kinect, int userID){
 void sendOsc(float elbowAngle, float shoulderAngle) {
   OscMessage msg = new OscMessage("/wek/inputs");
   //msg.add(shoulderAngle); 
-  //msg.add(elbowAngle);
   msg.add(elbowAngle); 
-  msg.add(shoulderAngle);
+  //msg.add(shoulderAngle);
   oscP5.send(msg, dest);
 }
