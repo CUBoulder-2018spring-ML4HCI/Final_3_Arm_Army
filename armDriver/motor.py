@@ -38,18 +38,18 @@ class motorDriver:
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
-            motor.clockwise(sleepTime)
+            motor.clockwise()
 
     def counterClockwise(self, motorName):
         self.disableStby()
         motor = self.getMotorByName(motorName)
         if motor != None:
-            motor.counterClockwise(sleepTime)
+            motor.counterClockwise()
 
     def stopMotor(self, motorName):
         motor = self.getMotorByName(motorName)
         if motor != None:
-            motor.stopMotor(sleepTime)
+            motor.stopMotor()
 
 class motor:
     def __init__(self, name, pwm, in1, in2):
