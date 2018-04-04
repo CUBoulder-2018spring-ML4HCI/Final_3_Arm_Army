@@ -41,5 +41,11 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
 ## Week 3 - 4/2
 
-### Adding Of 2nd Motor
+### Adding Of More Motor
   - Added Center Motor to the Software and wired it up to run - RC
+    - Two motors correctly work hard ware and Software - RC
+  - Running out of wires and its getting messy so we ordered a PI GPIO extender to make it more managable - RC
+  
+### Smooth Motor
+  - Removed the sleep function so now motors turn on or off - RC
+  - Added a stop motor function in the motor and motorDriver classes - RC
