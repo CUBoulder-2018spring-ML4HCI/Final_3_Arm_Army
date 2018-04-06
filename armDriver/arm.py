@@ -73,14 +73,14 @@ def getNum(addr,args):
     if num == 1.0:
         lowerDriver.clockwise(BASE)
         lowerDriver.clockwise(CENTER)
-        time.sleep(.75)
-        lowerDriver.stopMotor(BASE)
-        lowerDriver.stopMotor(CENTER)
     elif num == 2.0:
         lowerDriver.counterClockwise(BASE)
+        lowerDriver.counterClockwise(CENTER)
+    elif num == 3.0:
+        lowerDriver.stopMotor(BASE)
+        lowerDriver.stopMotor(CENTER)
     else:
-        print("number not changed")
-    num = 0
+        print("number not recognised")
 
 
 def main():
