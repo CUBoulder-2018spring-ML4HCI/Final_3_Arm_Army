@@ -50,4 +50,8 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Removed the sleep function so now motors turn on or off - RC
   - Added a stop motor function in the motor and motorDriver classes - RC
   
+### Get the Myoband Working
+  - Got the Myoband connected to a processing application using a Myoband library - AU
+  - Mapped default Myoband motions to different OSC signals to work with the arm - AU
+  
  [Myo Band With Arm Video](https://youtu.be/kdE6L6RaleA)
