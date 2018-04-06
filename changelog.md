@@ -49,3 +49,5 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 ### Smooth Motor
   - Removed the sleep function so now motors turn on or off - RC
   - Added a stop motor function in the motor and motorDriver classes - RC
+  
+ [Myo Band With Arm Video](https://youtu.be/kdE6L6RaleA)
