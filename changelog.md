@@ -54,4 +54,9 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Got the Myoband connected to a processing application using a Myoband library - AU
   - Mapped default Myoband motions to different OSC signals to work with the arm - AU
   
+### Get the Microbit working
+  - Microbit working when attached to calve - RP
+  - Used program from Wekinator website to get accelerometer inputs to wekinator - RP
+  - Attached microbit to an armband that should work for different peoples legs -RP
+  
  [Myo Band With Arm Video](https://youtu.be/kdE6L6RaleA)
