@@ -101,9 +101,9 @@ def main():
 
     dis = dispatcher.Dispatcher()
     dis.map("/wek/outputs", getNum)
-    dis.map("/output_1", output1)
-    dis.map("/output_2", output2)
-    dis.map("/output_3", output3)
+    #dis.map("/output_1", output1)
+    #dis.map("/output_2", output2)
+    #dis.map("/output_3", output3)
     server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
 
