@@ -107,6 +107,16 @@ def output3(addr,args):
     lowerDriver.clockwise(CENTER)
 
 
+def mix():
+    print("Start Mixing")
+
+def scoop():
+    print("Start Scoop")
+
+def move():
+    print("Starting Move")
+
+
 def main():
     #some code
     setupMotors()
