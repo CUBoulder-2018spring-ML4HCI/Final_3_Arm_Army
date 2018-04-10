@@ -45,6 +45,7 @@ global num
 #Used For motor Names
 BASE = "base"
 CENTER = "center"
+PIVOT = "pivot"
 
 
 
@@ -63,6 +64,10 @@ def setupMotors():
     lowerDriver.addMotor(BASE, 7, 12, 11)
     lowerDriver.addMotor(CENTER,29,15,16)
 
+    global higherDriver
+    higherDriver = motorDriver("higherMotors", 22)
+    higherDriver.addMotor(PIVOT, 37,35,33)
+
 
 def getNum(addr,args):
     global num
@@ -73,12 +78,15 @@ def getNum(addr,args):
     if num == 1.0:
         lowerDriver.clockwise(BASE)
         lowerDriver.clockwise(CENTER)
+        higherDriver.clockwise(PIVOT)
     elif num == 2.0:
         lowerDriver.counterClockwise(BASE)
         lowerDriver.counterClockwise(CENTER)
+        higherDriver.counterClockwise(PIVOT)
     elif num == 3.0:
         lowerDriver.stopMotor(BASE)
         lowerDriver.stopMotor(CENTER)
+        higherDriver.stopMotor(PIVOT)
     else:
         print("number not recognised")
 
