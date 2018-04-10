@@ -45,18 +45,26 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Added Center Motor to the Software and wired it up to run - RC
     - Two motors correctly work hard ware and Software - RC
   - Running out of wires and its getting messy so we ordered a PI GPIO extender to make it more managable - RC
-  
+
 ### Smooth Motor
   - Removed the sleep function so now motors turn on or off - RC
   - Added a stop motor function in the motor and motorDriver classes - RC
-  
+
 ### Get the Myoband Working
   - Got the Myoband connected to a processing application using a Myoband library - AU
   - Mapped default Myoband motions to different OSC signals to work with the arm - AU
-  
+
 ### Get the Microbit working
   - Microbit working when attached to calve - RP
   - Used program from Wekinator website to get accelerometer inputs to wekinator - RP
   - Attached microbit to an armband that should work for different peoples legs -RP
-  
+
  [Myo Band With Arm Video](https://youtu.be/kdE6L6RaleA)
+
+
+ ## Week 4 - 4/9
+
+ ### Adding Of More Motor
+  - Parts came in and converted what we had to work with new parts - RC
+  - Wired up second motorDriver - RC
+    - Testing the Software and hardware are correct with one motor.
