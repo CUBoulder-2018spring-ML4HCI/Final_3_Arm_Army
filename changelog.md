@@ -61,8 +61,11 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
  [Myo Band With Arm Video](https://youtu.be/kdE6L6RaleA)
 
-
  ## Week 4 - 4/9
+
+ ### Feedback
+ ![Feedback](img/feedback1.jpg)
+
 
  ### Adding Of More Motor
   - Parts came in and converted what we had to work with new parts - RC
