@@ -65,6 +65,10 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
  ### Feedback
  ![Feedback](img/feedback1.jpg)
+ ![Feedback](img/feedback2.jpg)
+ ![Feedback](img/feedback3.jpg)
+ ![Feedback](img/feedback4.jpg)
+ ![Feedback](img/feedback5.jpg)
 
 
  ### Adding Of More Motor
