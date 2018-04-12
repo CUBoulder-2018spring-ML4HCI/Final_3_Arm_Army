@@ -107,25 +107,24 @@ def output3(addr,args):
     lowerDriver.clockwise(CENTER)
 
 
-def mix():
+def mix(addr):
     print("Start Mixing")
 
-def scoop():
+def scoop(addr):
     print("Start Scoop")
 
-def move():
+def move(addr):
     print("Starting Move")
-
 
 def main():
     #some code
     setupMotors()
 
     dis = dispatcher.Dispatcher()
-    dis.map("/wek/outputs", getNum)
-    #dis.map("/output_1", output1)
-    #dis.map("/output_2", output2)
-    #dis.map("/output_3", output3)
+    #dis.map("/wek/outputs", getNum)
+    dis.map("/output_1", mix)
+    dis.map("/output_2", scoop)
+    dis.map("/output_3", move)
     server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
 

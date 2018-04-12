@@ -75,3 +75,7 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Parts came in and converted what we had to work with new parts - RC
   - All 4 motors currently work hardware and software wise - RC
     - IMPORTANT - while all 4 motors can run at the same time its not advised as it makes them run very slow. - RC
+
+
+ ### Correctly Take OSC for STW
+  - Added Functions and mapping for 3 motions for DTW - RC
