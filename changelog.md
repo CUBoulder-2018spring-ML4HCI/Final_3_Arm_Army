@@ -77,5 +77,5 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
     - IMPORTANT - while all 4 motors can run at the same time its not advised as it makes them run very slow. - RC
 
 
- ### Correctly Take OSC for STW
+ ### Correctly Take OSC for DTW
   - Added Functions and mapping for 3 motions for DTW - RC
