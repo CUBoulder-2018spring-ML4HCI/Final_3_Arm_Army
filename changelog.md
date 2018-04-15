@@ -79,8 +79,12 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
  ### Correctly Take OSC for DTW
   - Added Functions and mapping for 3 motions for DTW - RC
-  
+
  ### Get microbit working wirelessly
+   - Used Radio
 
+### Video Updates
+ - [Arm and Sensor Updates](https://youtu.be/PtUgsT3CMQ0)
+ - [GUI Trainer Updates](https://www.youtube.com/watch?v=cBm9ciqoZqE)
 
- [Progress Update 4/15](https://youtu.be/PtUgsT3CMQ0)
+ ## Week 5 - 4/15
