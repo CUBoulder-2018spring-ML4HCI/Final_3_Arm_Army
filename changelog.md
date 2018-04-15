@@ -82,6 +82,11 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
 
  ### Get microbit working wirelessly
    - Used Radio
+   
+ ### Get MicroBit OSC to Work Over Bluetooth
+   - Got microbit OSC executable to connect to microbit over bluetooth - AU
+   - Made python script to print out the OSC messages - AU
+   - Coded python script to take all OSC data then reformat to output only accelerometer - AU
 
 ### Video Updates
  - [Arm and Sensor Updates](https://youtu.be/PtUgsT3CMQ0)
