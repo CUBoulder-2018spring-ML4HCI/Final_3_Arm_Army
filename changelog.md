@@ -81,7 +81,9 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Added Functions and mapping for 3 motions for DTW - RC
 
  ### Get microbit working wirelessly
-   - Used Radio
+   - Got microbits sending/recieving Accelerometer values over radio - RP
+   - Connected microbit print statements to python script via serial - RP
+   - Used this to send accelerometer values to Wekinator - RP
    
  ### Get MicroBit OSC to Work Over Bluetooth
    - Got microbit OSC executable to connect to microbit over bluetooth - AU
