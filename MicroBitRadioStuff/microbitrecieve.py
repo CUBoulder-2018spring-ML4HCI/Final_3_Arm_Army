@@ -10,5 +10,5 @@ radio.config(power=7)           # Turn the signal up to full strength
 while True:
         incoming = str(radio.receive())
         print(incoming)
-        sleep(500)
+        sleep(200)
 
