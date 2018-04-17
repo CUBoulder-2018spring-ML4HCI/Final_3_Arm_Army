@@ -20,57 +20,24 @@ w = OptionMenu(root, variable, *OPTIONS)
 w.pack()
 
 def ok():
-    print ("value is:" + variable.get())
+    print ("Gesture to train is:" + variable.get())
 
-
-
-def Enter():
+def Train():
 	text_contents = text.get()
 	listbox.insert(END, text_contents)
 	text.delete(0,END)
 
-def Remove():
-	listbox.delete(ANCHOR)
-
-def Save():
-	f = file("notes.db", "wb")
-	notes = listbox.get(0, END)
-	pickle.dump(notes, f)
-
-def ReturnInsert(event):
-	Enter()
-
-def DeleteCurrent(event):
-	Remove()
-
-def CopyToText(event):
-	# text.delete(0, END)
-	current_note = listbox.get(ANCHOR)
-	# text.insert(0, current_note)
 
 textframe = Frame(root)
 listframe = Frame(root)
 
-enter_button = Button(textframe, text="Train", command = Enter)
-
-# text = Entry(textframe)
+train_button = Button(textframe, text="Train", command = Train)
 
 button = Button(root, text="OK", command=ok)
 
-scrollbar = Scrollbar(listframe, orient=VERTICAL)
-listbox = Listbox(listframe, yscrollcommand=scrollbar.set, selectmode=EXTENDED)
-scrollbar.configure(command=listbox.yview)
 
-# text.bind("<Return>", ReturnInsert)
-listbox.bind("<Double-Button-3>", DeleteCurrent)
-listbox.bind("<Double-Button-1>", CopyToText)
+train_button.pack(side=LEFT)
 
-# text.pack(side=LEFT, fill=X, expand=1)
-enter_button.pack(side=LEFT)
-listbox.pack(side=LEFT,fill=BOTH, expand=1)
-scrollbar.pack(side=RIGHT, fill=Y)
-
-textframe.pack(fill=X)
 listframe.pack(fill=BOTH, expand=1)
 
 button.pack()
