@@ -27,6 +27,15 @@ def Train():
 	listbox.insert(END, text_contents)
 	text.delete(0,END)
 
+def send_osc(event):
+    global running
+    print("sending...")
+    running = True
+
+def stop_osc(event):
+    global running
+    running = False
+    print("stopping...")
 
 textframe = Frame(root)
 listframe = Frame(root)
@@ -35,6 +44,10 @@ train_button = Button(textframe, text="Train", command = Train)
 
 button = Button(root, text="OK", command=ok)
 
+test_button= Button(root, text = "Training Mode")
+test_button.pack(side=RIGHT)
+test_button.bind('<ButtonPress-1>',send_osc)
+test_button.bind('<ButtonRelease-1>',stop_osc)
 
 train_button.pack(side=LEFT)
 
