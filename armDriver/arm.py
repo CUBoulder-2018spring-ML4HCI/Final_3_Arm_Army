@@ -44,7 +44,6 @@ server = None
 client = udp_client.SimpleUDPClient("localhost", server_port)
 motion = "stop"
 
-
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
@@ -92,7 +91,9 @@ def move(addr):
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    print("{:f}: Tick!".format(time.time()))
+    global motion
+    print(motion)
+    #print("{:f}: Tick!".format(time.time()))
 
 
 #Function given by Ben
