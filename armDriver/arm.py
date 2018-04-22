@@ -27,6 +27,7 @@ from pythonosc import udp_client
 def sigint_handler(signum, frame):
     print("Cleaning Up GPIO pins")
     GPIO.cleanup()
+    stopServer()
     sys.exit()
 
 signal.signal(signal.SIGINT, sigint_handler)
@@ -99,14 +100,14 @@ def handle_tick(message, ignore_this):
 def start_server_in_separate_thread():
     global server_thread, server_ip, server_port, server, motion
     motion = 'stop'
-    our_dispatcher = dispatcher.Dispatcher()
-    our_dispatcher.map("/tick", handle_tick)
+    dis = dispatcher.Dispatcher()
+    dis.map("/tick", handle_tick)
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
     # add other dispatcher hooks here
 
-    server = osc_server.ForkingOSCUDPServer((server_ip, server_port), our_dispatcher)
+    server = osc_server.ForkingOSCUDPServer((server_ip, server_port), dis)
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.start()
 
@@ -125,7 +126,7 @@ def main():
     start_server_in_separate_thread()
     setupMotors()
     while True:
-        send_tick()
+        sendTick()
         time.sleep(.01)
 
 if __name__ == "__main__":
