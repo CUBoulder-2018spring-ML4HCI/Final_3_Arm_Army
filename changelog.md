@@ -77,5 +77,28 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
     - IMPORTANT - while all 4 motors can run at the same time its not advised as it makes them run very slow. - RC
 
 
- ### Correctly Take OSC for STW
+ ### Correctly Take OSC for DTW
   - Added Functions and mapping for 3 motions for DTW - RC
+
+ ### Get microbit working wirelessly
+   - Got microbits sending/recieving Accelerometer values over radio - RP
+   - Connected microbit print statements to python script via serial - RP
+   - Used this to send accelerometer values to Wekinator - RP
+   
+ ### Get MicroBit OSC to Work Over Bluetooth
+   - Got microbit OSC executable to connect to microbit over bluetooth - AU
+   - Made python script to print out the OSC messages - AU
+   - Coded python script to take all OSC data then reformat to output only accelerometer - AU
+
+### Video Updates
+ - [Arm and Sensor Updates](https://youtu.be/PtUgsT3CMQ0)
+ - [GUI Trainer Updates](https://www.youtube.com/watch?v=cBm9ciqoZqE)
+
+ ## Week 5 - 4/15
+ 
+ 
+ ### Feedback Part 2
+ ![Feedback](img/IMG_0486.jpg)
+ ![Feedback](img/IMG_0487.jpg)
+ ![Feedback](img/IMG_0488.jpg)
+ 

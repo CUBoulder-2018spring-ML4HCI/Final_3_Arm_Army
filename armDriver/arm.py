@@ -41,6 +41,8 @@ input_port = 12000
 global lowerDriver
 global higherDriver
 global num
+global motion
+
 
 #Used For motor Names
 BASE = "base"
@@ -108,30 +110,35 @@ def output3(addr,args):
     lowerDriver.clockwise(BASE)
     lowerDriver.clockwise(CENTER)
 
-
-def mix(addr):
-    lowerDriver.clockwise(BASE)
+def move(addr):
+    global motion
+    motion = "mix"
     print("Start Mixing")
 
 def scoop(addr):
-    lowerDriver.counterClockwise(BASE)
+    global motion
+    motion = "scoop"
     print("Start Scoop")
 
 def move(addr):
-    lowerDriver.stopMotor(BASE)
+    global motion
+    motion = "move"
     print("Starting Move")
 
-def main():
-    #some code
-    setupMotors()
-
-    dis = dispatcher.Dispatcher()
-    #dis.map("/wek/outputs", getNum)
+def startServer():
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
     server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
     server.serve_forever()
+
+def main():
+    #some code
+    setupMotors()
+    startServer()
+    while True:
+        print("hello world")
+
 
 
 if __name__ == "__main__":
