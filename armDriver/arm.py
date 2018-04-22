@@ -43,6 +43,7 @@ server_thread = None
 server = None
 client = udp_client.SimpleUDPClient("localhost", server_port)
 
+global motion
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
@@ -95,16 +96,19 @@ def handle_tick(message, ignore_this):
     print(motion)
     print("{:f}: Tick!".format(time.time()))
 
+def serverInit(message, num):
+    global motion 
+    motion = "stop"
 #Function given by Ben
 #Modified by Ryan
 def start_server_in_separate_thread():
     global server_thread, server_ip, server_port, server, motion
-    motion = 'stop'
     dis = dispatcher.Dispatcher()
     dis.map("/tick", handle_tick)
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
+    dis.map("start", serverInit)
     # add other dispatcher hooks here
 
     server = osc_server.ForkingOSCUDPServer((server_ip, server_port), dis)
@@ -125,9 +129,10 @@ def sendTick():
 def main():
     start_server_in_separate_thread()
     setupMotors()
+    client.send_message("/start", "stop")
     while True:
         sendTick()
-        time.sleep(.01)
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
