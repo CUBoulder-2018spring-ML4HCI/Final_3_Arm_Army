@@ -3,10 +3,9 @@
 #Bring in required imports
 import time
 import signal
-import _thread
 import threading
 import RPi.GPIO as GPIO
-from multiprocessing import Value 
+from multiprocessing import Value
 from motor import motorDriver
 from motor import motor
 
@@ -17,6 +16,7 @@ import sys
 from pythonosc import osc_message_builder
 from pythonosc import dispatcher
 from pythonosc import osc_server
+from pythonosc import udp_client
 
 
 
@@ -34,30 +34,27 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 '''
 ' OSC Set up
-' The arm right now is set up to only receive not
+' The arm right now is set up to only receive
 '''
-input_host = "0.0.0.0"
-input_port = 12000
-
+server_ip = "0.0.0.0"
+server_port = 12000
+server_thread = None
+server = None
+client = udp_client.SimpleUDPClient("localhost", server_port)
 
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
 global num
-
-
 #Used For motor Names
 BASE = "base"
 CENTER = "center"
 PIVOT = "pivot"
 CLAW = "claw"
 
-
-
 def setupMotors():
     #Declare The GPIO Settings
     GPIO.setmode(GPIO.BOARD)
-
     '''
     ' Setup first motor driver
     '   1) init motor driver class
@@ -73,44 +70,6 @@ def setupMotors():
     higherDriver = motorDriver("higherMotors", 22)
     higherDriver.addMotor(PIVOT, 37,35,33)
     higherDriver.addMotor(CLAW, 36,38,40)
-
-def getNum(addr,args):
-    global num
-    #if args is not list: args = (args, )
-    num = int(args)
-    print("Received: " + str(args))
-
-    if num == 1.0:
-        lowerDriver.clockwise(BASE)
-        lowerDriver.clockwise(CENTER)
-    elif num == 2.0:
-        lowerDriver.counterClockwise(BASE)
-        lowerDriver.counterClockwise(CENTER)
-    elif num == 3.0:
-        lowerDriver.stopMotor(BASE)
-        lowerDriver.stopMotor(CENTER)
-        higherDriver.stopMotor(PIVOT)
-        higherDriver.stopMotor(CLAW)
-    elif num == 4.0:
-        higherDriver.clockwise(PIVOT)
-        higherDriver.clockwise(CLAW)
-    elif num == 5.0:
-        higherDriver.counterClockwise(PIVOT)
-        higherDriver.counterClockwise(CLAW)
-    else:
-        print("number not recognised")
-
-def output1(addr,args):
-    lowerDriver.stopMotor(BASE)
-    lowerDriver.stopMotor(CENTER)
-
-def output2(addr,args):
-    lowerDriver.counterClockwise(BASE)
-    lowerDriver.counterClockwise(CENTER)
-
-def output3(addr,args):
-    lowerDriver.clockwise(BASE)
-    lowerDriver.clockwise(CENTER)
 
 def mix(addr,test):
     global motion
@@ -128,37 +87,46 @@ def move(addr):
     motion = "move"
     print("Starting Move")
 
+#Function given by Ben
+#Modified by Ryan
+def handle_tick(message, ignore_this):
+    global motion
+    print(motion)
+    print("{:f}: Tick!".format(time.time()))
 
-'''
-def startServer():
-    global motion
-    motion = "start"
-    dis = dispatcher.Dispatcher()
+#Function given by Ben
+#Modified by Ryan
+def start_server_in_separate_thread():
+    global server_thread, server_ip, server_port, server, motion
+    motion = 'stop'
+    our_dispatcher = dispatcher.Dispatcher()
+    our_dispatcher.map("/tick", handle_tick)
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
-    server = osc_server.ForkingOSCUDPServer((input_host, input_port), dis)
+    # add other dispatcher hooks here
+
+    server = osc_server.ForkingOSCUDPServer((server_ip, server_port), our_dispatcher)
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.start()
-''' 
-    
+
+#Function given by Ben
+def stopServer():
+    global server_thread
+    server.shutdown()
+
+#Function given by Ben
+def sendTick():
+    global client
+    client.send_message("/tick", 42)
+
+
 def main():
-    global motion
-    motion = "start" 
-    dis = dispatcher.Dispatcher()
-    dis.map("/output_1", mix)
-    dis.map("/output_2", scoop)
-    dis.map("/output_3", move)
-    server = osc_server.ForkingOSCUDPServer((input_host, input_port), dis)
-    server_thread = threading.Thread(target=server.serve_forever)
-    server_thread.start()
-    
-    #some code
+    start_server_in_separate_thread()
     setupMotors()
     while True:
-        print(motion)
-
-
+        send_tick()
+        time.sleep(.01)
 
 if __name__ == "__main__":
     main()
