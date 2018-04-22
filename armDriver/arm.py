@@ -79,18 +79,20 @@ def getNum(addr,args):
     if num == 1.0:
         lowerDriver.clockwise(BASE)
         lowerDriver.clockwise(CENTER)
-        higherDriver.clockwise(PIVOT)
-        higherDriver.clockwise(CLAW)
     elif num == 2.0:
         lowerDriver.counterClockwise(BASE)
         lowerDriver.counterClockwise(CENTER)
-        higherDriver.counterClockwise(PIVOT)
-        higherDriver.counterClockwise(CLAW)
     elif num == 3.0:
         lowerDriver.stopMotor(BASE)
         lowerDriver.stopMotor(CENTER)
         higherDriver.stopMotor(PIVOT)
         higherDriver.stopMotor(CLAW)
+    elif num == 4.0:
+        higherDriver.clockwise(PIVOT)
+        higherDriver.clockwise(CLAW)
+    elif num == 5.0:
+        higherDriver.counterClockwise(PIVOT)
+        higherDriver.counterClockwise(CLAW)
     else:
         print("number not recognised")
 
@@ -108,12 +110,15 @@ def output3(addr,args):
 
 
 def mix(addr):
+    lowerDriver.clockwise(BASE)
     print("Start Mixing")
 
 def scoop(addr):
+    lowerDriver.counterClockwise(BASE)
     print("Start Scoop")
 
 def move(addr):
+    lowerDriver.stopMotor(BASE)
     print("Starting Move")
 
 def main():
