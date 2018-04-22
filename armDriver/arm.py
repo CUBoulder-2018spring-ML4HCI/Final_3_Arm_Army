@@ -3,7 +3,10 @@
 #Bring in required imports
 import time
 import signal
+import _thread
+import threading
 import RPi.GPIO as GPIO
+from multiprocessing import Value 
 from motor import motorDriver
 from motor import motor
 
@@ -41,7 +44,6 @@ input_port = 12000
 global lowerDriver
 global higherDriver
 global num
-global motion
 
 
 #Used For motor Names
@@ -110,8 +112,9 @@ def output3(addr,args):
     lowerDriver.clockwise(BASE)
     lowerDriver.clockwise(CENTER)
 
-def move(addr):
+def mix(addr,test):
     global motion
+    print(test)
     motion = "mix"
     print("Start Mixing")
 
@@ -125,19 +128,35 @@ def move(addr):
     motion = "move"
     print("Starting Move")
 
+
+'''
 def startServer():
+    global motion
+    motion = "start"
+    dis = dispatcher.Dispatcher()
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
-    server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
-    server.serve_forever()
-
+    server = osc_server.ForkingOSCUDPServer((input_host, input_port), dis)
+    server_thread = threading.Thread(target=server.serve_forever)
+    server_thread.start()
+''' 
+    
 def main():
+    global motion
+    motion = "start" 
+    dis = dispatcher.Dispatcher()
+    dis.map("/output_1", mix)
+    dis.map("/output_2", scoop)
+    dis.map("/output_3", move)
+    server = osc_server.ForkingOSCUDPServer((input_host, input_port), dis)
+    server_thread = threading.Thread(target=server.serve_forever)
+    server_thread.start()
+    
     #some code
     setupMotors()
-    startServer()
     while True:
-        print("hello world")
+        print(motion)
 
 
 
