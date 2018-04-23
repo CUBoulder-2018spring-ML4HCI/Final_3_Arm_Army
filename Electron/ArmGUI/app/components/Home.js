@@ -12,10 +12,8 @@ export default class Home extends Component<Props> {
     return (
       <div>
         <div className={styles.container} data-tid="container">
-          <h2>Home</h2>
-          <Link to="/counter">to Counter</Link>
-          <br />
-          <Link to="/motion">to Motion</Link>
+          <h2>3 Arm Army</h2>
+          <Link to="/motion">Create a Mapping</Link>
         </div>
       </div>
     );
