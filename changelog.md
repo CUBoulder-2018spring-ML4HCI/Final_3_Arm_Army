@@ -95,3 +95,15 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
  - [GUI Trainer Updates](https://www.youtube.com/watch?v=cBm9ciqoZqE)
 
  ## Week 5 - 4/15
+ 
+ 
+ ### Feedback Part 2
+ ![Feedback](img/IMG_0486.jpg)
+ ![Feedback](img/IMG_0487.jpg)
+ ![Feedback](img/IMG_0488.jpg)
+ 
+ ### GUI
+   - Setup react/redux electron UI - AU
+   - Got routes setup for selecting motions and actions - AU
+   - Wrote very bad looking styles - AU
+ 

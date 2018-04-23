@@ -1,0 +1,40 @@
+.header {
+  font-size: 72px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.btn {
+  border: 2px solid white;
+  border-radius: 6px;
+  background: none;
+  color: white;
+  font-size: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.center {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.sub_btn {
+  border: 2px solid;
+  font-size: 30px;
+  border-color: #19198c;
+  border-radius: 6px;
+  background-color: white;
+  color: #19198c;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

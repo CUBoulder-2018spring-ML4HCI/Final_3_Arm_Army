@@ -8,7 +8,7 @@ from pythonosc import udp_client
 
 IP = "192.168.2.9"
 PORT = 12000
-OSC_MESSAGE = "/wek/outputs"
+OSC_MESSAGE = "/output_1"
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -21,4 +21,7 @@ if __name__ == "__main__":
   print("Sending message to /wek/outputs: " + str(float(args.classification)))
 
   client = udp_client.SimpleUDPClient(args.ip, args.port)
-  client.send_message(OSC_MESSAGE, float(args.classification))
+
+  client = udp_client.SimpleUDPClient(args.ip, args.port)
+  client.send_message(OSC_MESSAGE, OSC_MESSAGE)
+  #client.send_message(OSC_MESSAGE, float(args.classification))

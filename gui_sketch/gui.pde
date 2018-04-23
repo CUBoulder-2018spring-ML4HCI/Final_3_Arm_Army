@@ -30,6 +30,10 @@ public void textarea2_change1(GTextArea source, GEvent event) { //_CODE_:textare
   println("textarea2 - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:textarea2:479748:
 
+public void button2_click1(GButton source, GEvent event) { //_CODE_:button2:401664:
+  println("button2 - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:button2:401664:
+
 
 
 // Create all the GUI controls. 
@@ -54,6 +58,9 @@ public void createGUI(){
   textarea2.setText("Select a movement you would like to train a gesture for from the dropdown list below.");
   textarea2.setOpaque(true);
   textarea2.addEventHandler(this, "textarea2_change1");
+  button2 = new GButton(this, 187, 145, 80, 30);
+  button2.setText("Face text");
+  button2.addEventHandler(this, "button2_click1");
 }
 
 // Variable declarations 
@@ -62,3 +69,4 @@ GButton button1;
 GDropList dropList1; 
 GTextArea textarea1; 
 GTextArea textarea2; 
+GButton button2; 

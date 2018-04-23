@@ -3,7 +3,9 @@
 #Bring in required imports
 import time
 import signal
+import threading
 import RPi.GPIO as GPIO
+from multiprocessing import Value
 from motor import motorDriver
 from motor import motor
 
@@ -14,6 +16,7 @@ import sys
 from pythonosc import osc_message_builder
 from pythonosc import dispatcher
 from pythonosc import osc_server
+from pythonosc import udp_client
 
 
 
@@ -24,6 +27,7 @@ from pythonosc import osc_server
 def sigint_handler(signum, frame):
     print("Cleaning Up GPIO pins")
     GPIO.cleanup()
+    stopServer()
     sys.exit()
 
 signal.signal(signal.SIGINT, sigint_handler)
@@ -31,29 +35,28 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 '''
 ' OSC Set up
-' The arm right now is set up to only receive not
+' The arm right now is set up to only receive
 '''
-input_host = "0.0.0.0"
-input_port = 12000
-
+server_ip = "0.0.0.0"
+server_port = 12000
+server_thread = None
+server = None
+client = udp_client.SimpleUDPClient("localhost", server_port)
+motion = "stop"
 
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
 global num
-
 #Used For motor Names
 BASE = "base"
 CENTER = "center"
 PIVOT = "pivot"
 CLAW = "claw"
 
-
-
 def setupMotors():
     #Declare The GPIO Settings
     GPIO.setmode(GPIO.BOARD)
-
     '''
     ' Setup first motor driver
     '   1) init motor driver class
@@ -70,64 +73,62 @@ def setupMotors():
     higherDriver.addMotor(PIVOT, 37,35,33)
     higherDriver.addMotor(CLAW, 36,38,40)
 
-def getNum(addr,args):
-    global num
-    #if args is not list: args = (args, )
-    num = int(args)
-    print("Received: " + str(args))
-
-    if num == 1.0:
-        lowerDriver.clockwise(BASE)
-        lowerDriver.clockwise(CENTER)
-        higherDriver.clockwise(PIVOT)
-        higherDriver.clockwise(CLAW)
-    elif num == 2.0:
-        lowerDriver.counterClockwise(BASE)
-        lowerDriver.counterClockwise(CENTER)
-        higherDriver.counterClockwise(PIVOT)
-        higherDriver.counterClockwise(CLAW)
-    elif num == 3.0:
-        lowerDriver.stopMotor(BASE)
-        lowerDriver.stopMotor(CENTER)
-        higherDriver.stopMotor(PIVOT)
-        higherDriver.stopMotor(CLAW)
-    else:
-        print("number not recognised")
-
-def output1(addr,args):
-    lowerDriver.stopMotor(BASE)
-    lowerDriver.stopMotor(CENTER)
-
-def output2(addr,args):
-    lowerDriver.counterClockwise(BASE)
-    lowerDriver.counterClockwise(CENTER)
-
-def output3(addr,args):
-    lowerDriver.clockwise(BASE)
-    lowerDriver.clockwise(CENTER)
-
-
-def mix(addr):
+def mix(addr,test):
+    global motion
+    motion = "mix"
     print("Start Mixing")
 
 def scoop(addr):
+    global motion
+    motion = "scoop"
     print("Start Scoop")
 
 def move(addr):
+    global motion
+    motion = "move"
     print("Starting Move")
 
-def main():
-    #some code
-    setupMotors()
+#Function given by Ben
+#Modified by Ryan
+def handle_tick(message, ignore_this):
+    global motion
+    print(motion)
+    #print("{:f}: Tick!".format(time.time()))
 
+
+#Function given by Ben
+#Modified by Ryan
+def start_server_in_separate_thread():
+    global server_thread, server_ip, server_port, server
     dis = dispatcher.Dispatcher()
-    #dis.map("/wek/outputs", getNum)
+    dis.map("/tick", handle_tick)
     dis.map("/output_1", mix)
     dis.map("/output_2", scoop)
     dis.map("/output_3", move)
-    server = osc_server.ThreadingOSCUDPServer((input_host, input_port), dis)
-    server.serve_forever()
 
+    # add other dispatcher hooks here
+
+    server = osc_server.ForkingOSCUDPServer((server_ip, server_port), dis)
+    server_thread = threading.Thread(target=server.serve_forever)
+    server_thread.start()
+
+#Function given by Ben
+def stopServer():
+    global server_thread
+    server.shutdown()
+
+#Function given by Ben
+def sendTick():
+    global client
+    client.send_message("/tick", 42)
+
+
+def main():
+    start_server_in_separate_thread()
+    setupMotors()
+    while True:
+        sendTick()
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
