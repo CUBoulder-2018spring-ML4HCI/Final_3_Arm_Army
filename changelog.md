@@ -102,3 +102,8 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
  ![Feedback](img/IMG_0487.jpg)
  ![Feedback](img/IMG_0488.jpg)
  
+ ### GUI
+   - Setup react/redux electron UI - AU
+   - Got routes setup for selecting motions and actions - AU
+   - Wrote very bad looking styles - AU
+ 
