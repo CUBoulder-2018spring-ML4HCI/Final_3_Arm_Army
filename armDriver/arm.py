@@ -77,7 +77,7 @@ def mix(addr,test):
     global state
     state.changeState("mix")
 
-def scoop(addr):
+def scoop(addr, test):
     global state
     state.changeState("scoop")
 
@@ -105,7 +105,7 @@ def start_server_in_separate_thread():
 
     # add other dispatcher hooks here
 
-    server = osc_server.BlockingOSCUDPServer((server_ip, server_port), our_dispatcher)
+    server = osc_server.BlockingOSCUDPServer((server_ip, server_port), dis)
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.start()
 
@@ -134,7 +134,7 @@ class State:
 
     def getCurrentState(self):
         with self.lock:
-            return self.count
+            return self.motion
 
     def printCurrentState(self):
         print("counter = {:d}".format(self.get_current_counter()), flush=True)
