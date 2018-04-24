@@ -88,9 +88,13 @@ def move(addr):
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    global state
+    global state, lowerDriver
+    if(state.getCurrentState() == 'mix'):
+        lowerDriver.clockwise(BASE)
+    else:
+        lowerDriver.stopMotor(BASE)
+
     print("State inside tick: " + state.getCurrentState())
-    #print("{:f}: Tick!".format(time.time()))
 
 
 #Function given by Ben
@@ -143,13 +147,11 @@ state = State()
 
 def main():
     global state
-    print("Before starting server, the state is: " + state.getCurrentState())
     start_server_in_separate_thread()
-    #setupMotors()
+    setupMotors()
     while True:
-        print("Before tick, state: " + state.getCurrentState())
         sendTick()
-        time.sleep(1)
+        time.sleep(.001)
 
 if __name__ == "__main__":
     main()
