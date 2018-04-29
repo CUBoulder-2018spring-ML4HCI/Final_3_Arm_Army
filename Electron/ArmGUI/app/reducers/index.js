@@ -1,10 +1,9 @@
-// @flow
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
-import counter from './counter';
+import mapping from './mapping';
 
 const rootReducer = combineReducers({
-  counter,
+  mapping,
   router,
 });
 

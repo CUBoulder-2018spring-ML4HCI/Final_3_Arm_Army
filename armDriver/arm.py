@@ -74,26 +74,27 @@ def setupMotors():
     higherDriver.addMotor(CLAW, 36,38,40)
 
 def mix(addr,test):
-    global motion
-    motion = "mix"
-    print("Start Mixing")
+    global state
+    state.changeState("mix")
 
-def scoop(addr):
-    global motion
-    motion = "scoop"
-    print("Start Scoop")
+def scoop(addr, test):
+    global state
+    state.changeState("scoop")
 
 def move(addr):
-    global motion
-    motion = "move"
-    print("Starting Move")
+    global state
+    state.changeState("move")
 
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    global motion
-    print(motion)
-    #print("{:f}: Tick!".format(time.time()))
+    global state, lowerDriver
+    if(state.getCurrentState() == 'mix'):
+        lowerDriver.clockwise(BASE)
+    else:
+        lowerDriver.stopMotor(BASE)
+
+    print("State inside tick: " + state.getCurrentState())
 
 
 #Function given by Ben
@@ -108,7 +109,7 @@ def start_server_in_separate_thread():
 
     # add other dispatcher hooks here
 
-    server = osc_server.ForkingOSCUDPServer((server_ip, server_port), dis)
+    server = osc_server.BlockingOSCUDPServer((server_ip, server_port), dis)
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.start()
 
@@ -122,13 +123,35 @@ def sendTick():
     global client
     client.send_message("/tick", 42)
 
+'''
+' Based off code osc-threaded-example-threadingVariable.py that was provided by Ben
+' Class State allows us to handle the state of the motor
+'''
+class State:
+    def __init__(self):
+        self.motion = "stop"
+        self.lock = threading.RLock()
+
+    def changeState(self, updatedMotion):
+        with self.lock:
+            self.motion = updatedMotion
+
+    def getCurrentState(self):
+        with self.lock:
+            return self.motion
+
+    def printCurrentState(self):
+        print("counter = {:d}".format(self.get_current_counter()), flush=True)
+
+state = State()
 
 def main():
+    global state
     start_server_in_separate_thread()
     setupMotors()
     while True:
         sendTick()
-        time.sleep(1)
+        time.sleep(.001)
 
 if __name__ == "__main__":
     main()

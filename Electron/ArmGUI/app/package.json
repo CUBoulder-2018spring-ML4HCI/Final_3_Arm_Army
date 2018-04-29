@@ -14,5 +14,9 @@
     "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "node-osc": "^2.1.0",
+    "osc": "^2.2.0",
+    "serialport": "^6.2.0"
+  }
 }
