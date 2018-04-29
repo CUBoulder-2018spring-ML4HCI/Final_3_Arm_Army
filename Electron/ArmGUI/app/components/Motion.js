@@ -43,14 +43,14 @@ export default class Motion extends Component<Props> {
         <Link className={styles.sub_btn} to="/action" onClick={() => addAction(this.state.selected)}>Continue</Link>
       </div>
     )
-    
+
     return (
       <div>
         <Link to="/">
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
-        <h1>Select an Action and Continue</h1>
         <h1 className={styles.header}>Select an Action</h1>
+        <p>Select an action and then hit the continue button.</p>
         <div className={styles.container}>
           <button className={styles.btn} onClick={() => this.buttonClick(1)}>Stir</button>
           <button className={styles.btn} onClick={() => this.buttonClick(2)}>Scoop</button>

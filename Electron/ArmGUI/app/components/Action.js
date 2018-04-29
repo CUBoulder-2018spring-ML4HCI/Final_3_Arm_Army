@@ -65,12 +65,9 @@ export default class Action extends Component<Props> {
     ) : (
       <div>
         <h1 className={styles.header}>Record an example</h1>
-        <h2>Hold down the button to record</h2>
+        <p>Press and hold down the record button to record your action. When you're done, click the save mapping button.</p>
         <div className={styles.center}>
           <button className={styles.btn} onMouseDown={this.sendDTWStart.bind(this)} onMouseUp={this.sendDTWStop.bind(this)}>Record</button>
-        </div>
-        <div className={styles.center}>
-          <button className={styles.sub_btn} onClick={this.test.bind(this)} to="/">Test</button>
         </div>
         <div className={styles.center}>
           <Link className={styles.sub_btn} onClick={() => addMotion(this.state.idToPlace, this.state.motionName)} to="/">Save Mapping</Link>
@@ -83,7 +80,8 @@ export default class Action extends Component<Props> {
         <Link to="/motion">
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
-        <h1>Name Your Action</h1>
+        <h1 className={styles.header}>Name Your Action</h1>
+        <p>First you need to type a name for your action.</p>
         <form>
           <input type="text" onChange={evt => this.handleChange(evt)} />
         </form>
