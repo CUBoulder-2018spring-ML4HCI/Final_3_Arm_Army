@@ -14,9 +14,11 @@ while True:
     s= serial.Serial(PORT)
     s.baudrate= BAUD
     datax = s.readline()
+    #print(datax)
     intx = datax.split(", ")
+    str(intx[2]).replace("\r\n","")
     #print(intx)
-    if (len(intx)==4):
+    if (len(intx)==3):
         try:
             #check if values can be converted to float
             x=float(intx[0])
