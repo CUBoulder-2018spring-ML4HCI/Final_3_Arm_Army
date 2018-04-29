@@ -42,16 +42,27 @@ export default class Run extends Component<Props> {
     return (
       <div>
         <Link to="/">
-          <i className="fa fa-arrow-left fa-3x" />
+          <i className="fa fa-arrow-left fa-3x" style={{color: "black", paddingTop: "10px", paddingLeft: "10px"}} />
         </Link>
-        <h1 className={styles.header}>Control the Arm</h1>
-        <ul>
-          {list.map(motion =>
-            <li>{motion.motion + " mapped to " + convert[motion.actionNumber]}</li>
-          )}
-        </ul>
-        <div className={styles.center}>
-          <button className={styles.btn} onClick={this.runWek.bind(this)}>Run</button>
+        <div className="center-align container" data-tid="container">
+          <h1>Control the Arm</h1>
+          <div className="row">
+            {list.map(motion =>
+              (<div className="col s3">
+                <div className="card">
+                  <div className="card-content black-text">
+                    <span className="card-title">{motion.motion}</span>
+                    <p>{"The " + motion.motion + " is mapped to " + convert[motion.actionNumber]}</p>
+                  </div>
+                  <div className="card-action">
+                  </div>
+                </div>
+              </div>)
+            )}
+          </div>
+          <div className={styles.center}>
+            <button className="waves-effect waves-light btn" onClick={this.runWek.bind(this)}>Run</button>
+          </div>
         </div>
       </div>
     );

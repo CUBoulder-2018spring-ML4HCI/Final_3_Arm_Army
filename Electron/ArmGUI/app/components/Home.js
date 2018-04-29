@@ -19,12 +19,19 @@ export default class Home extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <div className={styles.container} data-tid="container">
-          <h2>3 Arm Army</h2>
-          <Link to="/motion">Create a Mapping</Link>
-          <br />
-          <Link to="/run" onClick={this.train}>Run your training</Link>
+      <div className={styles.mt}>
+        <div className="center-align container" data-tid="container">
+          <div className="row">
+            <div className="col s12">
+              <h1>3 Arm Army </h1>
+            </div>
+            <div className="col s6">
+              <Link className="waves-effect waves-light btn" to="/motion">Create a Mapping</Link>
+            </div>
+            <div className="col s6">
+              <Link className="waves-effect waves-light btn" to="/run" onClick={this.train}>Run your training</Link>
+            </div>
+          </div>
         </div>
       </div>
     );
