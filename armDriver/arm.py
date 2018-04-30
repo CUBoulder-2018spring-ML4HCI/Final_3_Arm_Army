@@ -67,13 +67,13 @@ def setupMotors():
     #addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
-    lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, 0.064, 0)
-    lowerDriver.addMotor(CENTER,29,15,16, 0,165, 0.033, 0)
+    lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, float(0.064), 0.0)
+    lowerDriver.addMotor(CENTER,29,15,16, 0,165, float(0.033), 0.0)
 
     global higherDriver
     higherDriver = motorDriver("higherMotors", 22)
-    higherDriver.addMotor(PIVOT, 37,35,33, 0,180, 1.031, 0)
-    higherDriver.addMotor(CLAW, 36,38,40, 0,180, 0.0, 0)
+    higherDriver.addMotor(PIVOT, 37,35,33, 0,180, float(0.031), 0.0)
+    higherDriver.addMotor(CLAW, 36,38,40, 0,180, float(0.0), 0.0)
 
 def mix(addr,test):
     global state
@@ -106,7 +106,6 @@ def handle_tick(message, ignore_this):
     higherDriver.update(deltaTime)
     if state.sameState():
         step = 0
-
     #check if motors all at location
     if(lowerDriver.getTargetReachedMotor(BASE) and lowerDriver.getTargetReachedMotor(CENTER) and higherDriver.getTargetReachedMotor(PIVOT)):
         step = step + 1

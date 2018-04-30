@@ -76,8 +76,8 @@ class motor:
         self.maxLimit = maxLimit
         self.minLimit = minLimit
         self.travelSpeed = travelSpeed
-        self.target = 0
-        self.direction = 0
+        self.target = 0.0
+        self.direction = float(0.0)
         self.targetReached = False
 
         #initialise pins
@@ -86,19 +86,21 @@ class motor:
         GPIO.setup(self.in2, GPIO.OUT) # IN2
 
     def clockwise(self):
-        self.direction = 1
+        print("updating direction")
+        self.direction = float(1.0)
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2, GPIO.HIGH)
         GPIO.output(self.pwm, GPIO.HIGH)
 
     def counterClockwise(self):
-        self.direction = -1
+        self.direction = float('-1.0')
+        print(self.direction)
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
         GPIO.output(self.pwm, GPIO.HIGH)
 
     def stopMotor(self):
-        self.direction = 0
+        self.direction = float(0.0)
         GPIO.output(self.pwm, GPIO.LOW)
 
     def updateTargetLocation(self, newTarget):
@@ -109,22 +111,19 @@ class motor:
         return self.targetReached
 
     def update(self, time):
-        print( "travelSpeed: "+str(self.travelSpeed))
-        print("direction: " + str(self.direction))
-        print("time: " + str(time))
-        print( "add: "+str(float(self.travelSpeed * self.direction * time)))
-
+        print(self.direction)
         self.location = self.location + self.travelSpeed * self.direction * time
         #check if value is within 1 degree of target. If it is stop motors
-        if(self.location < self.target - .001 or self.location > self.target + .001):
+        if(self.location > self.target - 0.1 and self.location < self.target + 0.1):
+            self.targetReached = True
+            self.stopMotor()
+        else: 
             if(self.location - self.target > 0):
                 print("clockwise")
-                self.clockwise()
+                clockwise()
             else:
-                print("counter clockwise")
+                print(self.name +"counterClockwise")
                 self.counterClockwise()
-        else:
-            
             self.targetReached = True
             self.stopMotor()
         # If location is out of limits stop motors
