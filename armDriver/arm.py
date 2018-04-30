@@ -64,7 +64,7 @@ def setupMotors():
     '   2) add motor A
     '   3) add motor B
     '''
-    #def addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
+    #addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
     lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, 0.064, 0)
@@ -91,10 +91,10 @@ def move(addr):
 mixSteps = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
 #scoop goes to center and picks up
-scoopSteps = [[0,0,0,0], [0,0,0,0]]
+scoopSteps = [[90,100,135,0], [90,90,90,0]]
 
 #move moves it to end of plate
-moveSteps = [[180, 90,90, 0]]
+moveSteps = [[175, 90,90, 0]]
 
 #Function given by Ben
 #Modified by Ryan
