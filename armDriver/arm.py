@@ -89,8 +89,9 @@ def move(addr):
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    global state, lowerDriver, higherDriver, time
-    lowerDriver.update
+    global state, lowerDriver, higherDriver, startTime
+    deltaTime = time.time() - startTime
+    lowerDriver.update(deltaTime)
     if state.getCurrentState() == 'mix':
         #mix logic
         print("mix")

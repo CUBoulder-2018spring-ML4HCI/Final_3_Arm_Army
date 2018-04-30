@@ -6,8 +6,8 @@ import sys
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 
-#IP = "192.168.2.9"
-IP = "10.201.70.169"
+IP = "192.168.2.9"
+#IP = "10.201.70.169"
 PORT = 12000
 OSC_MESSAGE = "/output_2"
 
