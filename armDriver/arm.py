@@ -68,7 +68,7 @@ def setupMotors():
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
     lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, float(0.0156), 0.0)
-    lowerDriver.addMotor(CENTER,29,15,16, 0,165, float(0.06), 0.0)
+    lowerDriver.addMotor(CENTER,29,15,16, 0,165, float(0.060), 0.0)
 
     global higherDriver
     higherDriver = motorDriver("higherMotors", 22)

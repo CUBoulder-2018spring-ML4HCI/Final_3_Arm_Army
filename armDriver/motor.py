@@ -93,7 +93,7 @@ class motor:
         GPIO.output(self.pwm, GPIO.HIGH)
 
     def counterClockwise(self):
-        self.direction = float('-1.0')
+        self.direction = -1.0
         print(self.direction)
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
@@ -117,10 +117,10 @@ class motor:
         if(self.location > self.target - 0.1 and self.location < self.target + 0.1):
             self.targetReached = True
             self.stopMotor()
-        else: 
-            if(self.location - self.target > 0):
+        else:
+            if(self.location - self.target < 0):
                 print("clockwise")
-                clockwise()
+                self.clockwise()
             else:
                 print(self.name +"counterClockwise")
                 self.counterClockwise()
