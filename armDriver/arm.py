@@ -67,12 +67,12 @@ def setupMotors():
     #addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
-    lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, float(0.064), 0.0)
-    lowerDriver.addMotor(CENTER,29,15,16, 0,165, float(0.033), 0.0)
+    lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, float(0.0156), 0.0)
+    lowerDriver.addMotor(CENTER,29,15,16, 0,165, float(0.06), 0.0)
 
     global higherDriver
     higherDriver = motorDriver("higherMotors", 22)
-    higherDriver.addMotor(PIVOT, 37,35,33, 0,180, float(0.031), 0.0)
+    higherDriver.addMotor(PIVOT, 37,35,33, 0,180, float(0.065), 0.0)
     higherDriver.addMotor(CLAW, 36,38,40, 0,180, float(0.0), 0.0)
 
 def mix(addr,test):
