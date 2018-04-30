@@ -62,7 +62,7 @@ class motorDriver:
             return motor.getTargetReached()
 
     def update(self, time):
-        for motor in motors:
+        for motor in self.motors:
             motor.update(time)
 
 class motor:
@@ -78,7 +78,7 @@ class motor:
         self.travelSpeed = travelSpeed
         self.target = 0
         self.direction = 0
-        self.targerReached = True
+        self.targetReached = True
 
         #initialise pins
         GPIO.setup(self.pwm, GPIO.OUT) # conected to PWMA
@@ -113,7 +113,7 @@ class motor:
         #check if value is within 1 degree of target. If it is stop motors
         if(self.direction >= self.target - 1 and self.direction <= self.target + 1):
             self.targetReached = True
-            slef.stopMotor()
+            self.stopMotor()
         else:
             #motors arent in target move in needed direction
             if(self.location - self.target > 0):
@@ -122,4 +122,4 @@ class motor:
                 self.counterClockwise()
         # If location is out of limits stop motors
         if(self.location >= self.maxLimit or self.location <= self.minLimit):
-            slef.stopMotor()
+            self.stopMotor()

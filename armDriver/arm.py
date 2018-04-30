@@ -68,12 +68,12 @@ def setupMotors():
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
     lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, 0.064, 0)
-    lowerDriver.addMotor(CENTER,29,15,16, 0,165, 0.064, 0)
+    lowerDriver.addMotor(CENTER,29,15,16, 0,165, 0.033, 0)
 
     global higherDriver
     higherDriver = motorDriver("higherMotors", 22)
-    higherDriver.addMotor(PIVOT, 37,35,33, 0,90,5, 0.064, 0)
-    higherDriver.addMotor(CLAW, 36,38,40, 0,180,5, 0.064, 0)
+    higherDriver.addMotor(PIVOT, 37,35,33, 0,180, 0.031, 0)
+    higherDriver.addMotor(CLAW, 36,38,40, 0,180, 0.0, 0)
 
 def mix(addr,test):
     global state
@@ -102,7 +102,7 @@ def handle_tick(message, ignore_this):
     global state, lowerDriver, higherDriver, startTime, step
     deltaTime = time.time() - startTime
     lowerDriver.update(deltaTime)
-    if state.changeState():
+    if state.sameState():
         step = 0
 
     #check if motors all at location
@@ -196,7 +196,7 @@ class State:
 state = State()
 
 def main():
-    global state, startTime, step
+    global state, startTime, step, higherDriver, lowerDriver
     step = 0
     start_server_in_separate_thread()
     setupMotors()
