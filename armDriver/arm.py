@@ -48,6 +48,7 @@ motion = "stop"
 global lowerDriver
 global higherDriver
 global startTime
+global step
 #Used For motor Names
 BASE = "base"
 CENTER = "center"
@@ -86,21 +87,47 @@ def move(addr):
     global state
     state.changeState("move")
 
+#square motion for mix
+mixSteps = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+
+#scoop goes to center and picks up
+scoopSteps = [[0,0,0,0], [0,0,0,0]]
+
+#move moves it to end of plate
+moveSteps = [[180, 90,90, 0]]
+
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    global state, lowerDriver, higherDriver, startTime
+    global state, lowerDriver, higherDriver, startTime, step
     deltaTime = time.time() - startTime
     lowerDriver.update(deltaTime)
+    if state.changeState():
+        step = 0
+
+    #check if motors all at location
+    if(lowerDriver.getTargetReachedMotor(BASE) and lowerDriver.getTargetReachedMotor(CENTER) and higherDriver.getTargetReachedMotor(PIVOT)):
+        step = step + 1
+
     if state.getCurrentState() == 'mix':
         #mix logic
-        print("mix")
+        if(step < len(mixStep)-1):
+            lowerDriver.updateMotorTargetLocation(BASE, mixStep[step][0])
+            lowerDriver.updateMotorTargetLocation(CENTER, mixStep[step][1])
+            higherDriver.updateMotorTargetLocation(PIVOT, mixStep[step][2])
+        else:
+            step = len(mixStep) - 1
     elif state.getCurrentState() == 'scoop':
         #scoop logic
-        print("scoop")
+        lowerDriver.updateMotorTargetLocation(BASE, scoopStep[step][0])
+        lowerDriver.updateMotorTargetLocation(CENTER, scoopStep[step][1])
+        higherDriver.updateMotorTargetLocation(PIVOT, scoopStep[step][2])
+
     elif state.getCurrentState() == 'move':
         #move logic
-        print("move")
+        lowerDriver.updateMotorTargetLocation(BASE, moveStep[step][0])
+        lowerDriver.updateMotorTargetLocation(CENTER, moveStep[step][1])
+        higherDriver.updateMotorTargetLocation(PIVOT, moveStep[step][2])
     else:
         lowerDriver.stopMotor(BASE)
         lowerDriver.stopMotor(CENTER)
@@ -144,15 +171,24 @@ def sendTick():
 class State:
     def __init__(self):
         self.motion = "stop"
+        self.lastMotion = "stop"
         self.lock = threading.RLock()
 
     def changeState(self, updatedMotion):
         with self.lock:
+            self.lastMotion = self.motion
             self.motion = updatedMotion
 
     def getCurrentState(self):
         with self.lock:
             return self.motion
+
+    def sameState(self):
+        with self.lock:
+            if self.motion == self.motion:
+                return True
+            else:
+                return False
 
     def printCurrentState(self):
         print("counter = {:d}".format(self.get_current_counter()), flush=True)
@@ -160,7 +196,8 @@ class State:
 state = State()
 
 def main():
-    global state, startTime
+    global state, startTime, step
+    step = 0
     start_server_in_separate_thread()
     setupMotors()
     startTime = time.time()
