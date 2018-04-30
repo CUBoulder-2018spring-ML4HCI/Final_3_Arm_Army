@@ -78,7 +78,7 @@ class motor:
         self.travelSpeed = travelSpeed
         self.target = 0
         self.direction = 0
-        self.targetReached = True
+        self.targetReached = False
 
         #initialise pins
         GPIO.setup(self.pwm, GPIO.OUT) # conected to PWMA
@@ -109,17 +109,24 @@ class motor:
         return self.targetReached
 
     def update(self, time):
+        print( "travelSpeed: "+str(self.travelSpeed))
+        print("direction: " + str(self.direction))
+        print("time: " + str(time))
+        print( "add: "+str(float(self.travelSpeed * self.direction * time)))
+
         self.location = self.location + self.travelSpeed * self.direction * time
         #check if value is within 1 degree of target. If it is stop motors
-        if(self.direction >= self.target - 1 and self.direction <= self.target + 1):
-            self.targetReached = True
-            self.stopMotor()
-        else:
-            #motors arent in target move in needed direction
+        if(self.location < self.target - .001 or self.location > self.target + .001):
             if(self.location - self.target > 0):
+                print("clockwise")
                 self.clockwise()
             else:
+                print("counter clockwise")
                 self.counterClockwise()
+        else:
+            
+            self.targetReached = True
+            self.stopMotor()
         # If location is out of limits stop motors
-        if(self.location >= self.maxLimit or self.location <= self.minLimit):
+        if(self.location > self.maxLimit or self.location < self.minLimit):
             self.stopMotor()
