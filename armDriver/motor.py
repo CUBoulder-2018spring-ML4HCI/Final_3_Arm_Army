@@ -11,8 +11,8 @@ class motorDriver:
         self.stby = stby
         GPIO.setup(self.stby, GPIO.OUT)
 
-    def addMotor(self, name, pwm, in1,in2):
-        self.motors.append(motor(name, pwm, in1, in2))
+    def addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
+        self.motors.append(motor(name, pwm, in1, in2, minLimit, maxLimit, travelSpeed, startLocation))
 
     '''
     ' The Stby pin on the motor driver when set to high
@@ -51,13 +51,22 @@ class motorDriver:
         if motor != None:
             motor.stopMotor()
 
+    def update(self, time):
+        for motor in motors:
+            motor.update(time)
+
 class motor:
-    def __init__(self, name, pwm, in1, in2):
+    def __init__(self, name, pwm, in1, in2, minLimit, maxLimit, travelSpeed, startLocation):
         #store variables
         self.name = name
         self.pwm = pwm
         self.in1 = in1
         self.in2 = in2
+        self.location = startLocation
+        self.maxLimit = maxLimit
+        self.minLimit = minLimit
+        self.travelSpeed = travelSpeed
+        self.direction = 0
 
         #initialise pins
         GPIO.setup(self.pwm, GPIO.OUT) # conected to PWMA
@@ -65,14 +74,22 @@ class motor:
         GPIO.setup(self.in2, GPIO.OUT) # IN2
 
     def clockwise(self):
+        self.direction = 1
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2, GPIO.HIGH)
         GPIO.output(self.pwm, GPIO.HIGH)
 
     def counterClockwise(self):
+        self.direction = -1
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
         GPIO.output(self.pwm, GPIO.HIGH)
 
     def stopMotor(self):
+        self.direction = 0
         GPIO.output(self.pwm, GPIO.LOW)
+
+    def update(self, time):
+        self.location = self.location + self.travelSpeed * self.direction * time
+        if(self.location >= self.maxLimit or self.location <= self.minLimit):
+            slef.stopMotor()

@@ -47,7 +47,7 @@ motion = "stop"
 #Used for the 2 motor drivers
 global lowerDriver
 global higherDriver
-global num
+global startTime
 #Used For motor Names
 BASE = "base"
 CENTER = "center"
@@ -63,15 +63,16 @@ def setupMotors():
     '   2) add motor A
     '   3) add motor B
     '''
+    #def addMotor(self, name, pwm, in1,in2,minLimit, maxLimit, travelSpeed, startLocation):
     global lowerDriver
     lowerDriver = motorDriver("lowerMotors", 13)
-    lowerDriver.addMotor(BASE, 7, 12, 11)
-    lowerDriver.addMotor(CENTER,29,15,16)
+    lowerDriver.addMotor(BASE, 7, 12, 11, 0,180, 0.064, 0)
+    lowerDriver.addMotor(CENTER,29,15,16, 0,165, 0.064, 0)
 
     global higherDriver
     higherDriver = motorDriver("higherMotors", 22)
-    higherDriver.addMotor(PIVOT, 37,35,33)
-    higherDriver.addMotor(CLAW, 36,38,40)
+    higherDriver.addMotor(PIVOT, 37,35,33, 0,90,5, 0.064, 0)
+    higherDriver.addMotor(CLAW, 36,38,40, 0,180,5, 0.064, 0)
 
 def mix(addr,test):
     global state
@@ -88,11 +89,23 @@ def move(addr):
 #Function given by Ben
 #Modified by Ryan
 def handle_tick(message, ignore_this):
-    global state, lowerDriver
-    if(state.getCurrentState() == 'mix'):
-        lowerDriver.clockwise(BASE)
+    global state, lowerDriver, higherDriver, time
+    lowerDriver.update
+    if state.getCurrentState() == 'mix':
+        #mix logic
+        print("mix")
+    elif state.getCurrentState() == 'scoop':
+        #scoop logic
+        print("scoop")
+    elif state.getCurrentState() == 'move':
+        #move logic
+        print("move")
     else:
         lowerDriver.stopMotor(BASE)
+        lowerDriver.stopMotor(CENTER)
+        higherDriver.stopMotor(PIVOT)
+        higherDriver.stopMotor(CLAW)
+
 
     print("State inside tick: " + state.getCurrentState())
 
@@ -146,9 +159,10 @@ class State:
 state = State()
 
 def main():
-    global state
+    global state, startTime
     start_server_in_separate_thread()
     setupMotors()
+    startTime = time.time()
     while True:
         sendTick()
         time.sleep(.001)
