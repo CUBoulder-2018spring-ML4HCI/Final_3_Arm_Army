@@ -31,3 +31,7 @@
  Next start the GUI with: ```npm run dev``` you can close the debug window once the GUI opens.
  
  Now a user can train their mappings and start the project with the GUI. Before training Wekinator must be open. 
+ 
+ 
+ ## MicroBit
+ 
