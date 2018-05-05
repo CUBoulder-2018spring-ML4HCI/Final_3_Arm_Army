@@ -39,3 +39,4 @@
  
 
 ## [Video Demonstration](https://www.youtube.com/watch?v=2I-ou1PnAPc&feature=youtu.be)
+## [Final Report](https://github.com/CUBoulder-2018spring-ML4HCI/Final_3_Arm_Army/blob/master/ML%20Project%20Report.pdf)
