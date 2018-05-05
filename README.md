@@ -13,4 +13,21 @@
  
  Currently the ```arm.py``` has an issue with not updating the location of the motor causing the step program from running correctly. This is why we need to run the ```demoArm.py``` script. This scrip receives a signal from Wekinator and then updates the state. Both of these scripts has a game loop that change the motors actions depending on the state.
  
+ ## Setting Up Wekinator
+ 1. Open Wekinator 
+ 2. Start a New project
+ 3. Change the ```# inputs``` to 3
+ 4. Change the ```Host (IP address or name)``` to the IP if the Pi. In our case 192.168.2.9
+ 5. Change the ```type``` to All Dynamic Time Warping (default settings)
+ 6. Change the number of gestures to 4
+ 7. Click Next
  
+ 
+ ## Starting Up GUI
+ On the same computer as wekinator you need to open up the GUI. Go in to the Electron directory that contains the GUI: ```cd Final_3_Arm_Army/Electron/ArmGUI/``` 
+ 
+ Once in this folder we need to install the dependencies with ```npm install```
+ 
+ Next start the GUI with: ```npm run dev``` you can close the debug window once the GUI opens.
+ 
+ Now a user can train their mappings and start the project with the GUI. Before training Wekinator must be open. 
