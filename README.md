@@ -36,6 +36,9 @@
  
  
  ## MicroBit
+To run our project, you will need two microbits as well as a battery pack for one. The microbits should be flashed the code for sending and recieving accelerometer values, which can be done simply by dragging the hex files to the microbit in the file system.
+
+A receiving microbit should be connected to the computer, and a sending microbit connected to the user with a battery pack. Once this is in place, the user should run "notserial.py" to send accelerometer values to wekinator. They will also need to adjust the IP address in the code as necessary.
  
 
 ## [Video Demonstration](https://www.youtube.com/watch?v=2I-ou1PnAPc&feature=youtu.be)
