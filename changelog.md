@@ -46,9 +46,6 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
     - Two motors correctly work hard ware and Software - RC
   - Running out of wires and its getting messy so we ordered a PI GPIO extender to make it more managable - RC
 
-### Motor Sequence file
-  - Experimented creating a class to control the motor using arrow keys - DN
-
 ### Smooth Motor
   - Removed the sleep function so now motors turn on or off - RC
   - Added a stop motor function in the motor and motorDriver classes - RC
@@ -80,10 +77,6 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
     - IMPORTANT - while all 4 motors can run at the same time its not advised as it makes them run very slow. - RC
 
 
-### Adding GUI
-  - Used Processing GUI Builder - DN
-  - Directions and drop down for movement selector - DN
-
  ### Correctly Take OSC for DTW
   - Added Functions and mapping for 3 motions for DTW - RC
 
@@ -91,7 +84,7 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
    - Got microbits sending/recieving Accelerometer values over radio - RP
    - Connected microbit print statements to python script via serial - RP
    - Used this to send accelerometer values to Wekinator - RP
-
+   
  ### Get MicroBit OSC to Work Over Bluetooth
    - Got microbit OSC executable to connect to microbit over bluetooth - AU
    - Made python script to print out the OSC messages - AU
@@ -102,14 +95,15 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
  - [GUI Trainer Updates](https://www.youtube.com/watch?v=cBm9ciqoZqE)
 
  ## Week 5 - 4/15
-
-
+ 
+ 
  ### Feedback Part 2
  ![Feedback](img/IMG_0486.jpg)
  ![Feedback](img/IMG_0487.jpg)
  ![Feedback](img/IMG_0488.jpg)
-
+ 
  ### GUI
    - Setup react/redux electron UI - AU
    - Got routes setup for selecting motions and actions - AU
    - Wrote very bad looking styles - AU
+ 
