@@ -26,11 +26,11 @@ We decided we will be creating a robotic arm that has a set of pre made motions 
 
 ### Kinect & Processing
   We created a 2 class classifier that detects if the user's left arm is reaching up towards his or her left shoulder.
-  - Experimented with inputs from Kinect and used [SimpleOpenNI](https://github.com/wexstorm/simple-openni), a library that tracks body joints and angles.
-  - Used Processing to get Kinect Data and forwarded info to Wekinator
-    - Planning to forward classification Wekinator provides to our Python OSC component to drive the motors
+  - Experimented with inputs from Kinect and used [SimpleOpenNI](https://github.com/wexstorm/simple-openni), a library that tracks body joints and angles. - DN
+  - Used Processing to get Kinect Data and forwarded info to Wekinator - DN
+    - Planning to forward classification Wekinator provides to our Python OSC component to drive the motors 
 
-We experimented with Kinect because we thought that our robotic helper hand would fit perfectly on one's shoulder. Kinect would allow us to sense when a user is reaching for a the arm sitting on his or her shoulder by measuring the angle of the elbow.
+We experimented with Kinect because we thought that our robotic helper hand would fit perfectly on one's shoulder. Kinect would allow us to sense when a user is reaching for a the arm sitting on his or her shoulder by measuring the angle of the elbow. -DN
 
 Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Currently one motor is being driven, and now the rest of the motors will be bootstrapped forward with the classes we already wrote.
 
@@ -45,6 +45,9 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Added Center Motor to the Software and wired it up to run - RC
     - Two motors correctly work hard ware and Software - RC
   - Running out of wires and its getting messy so we ordered a PI GPIO extender to make it more managable - RC
+
+### Motor Instruction Class
+  - Started writing code that would allow the arm to be controlled with instructions from the keyboard - DN
 
 ### Smooth Motor
   - Removed the sleep function so now motors turn on or off - RC
@@ -75,7 +78,10 @@ Cleaned up demo to work correctly with the Raspberry Pi and OSC messages. Curren
   - Parts came in and converted what we had to work with new parts - RC
   - All 4 motors currently work hardware and software wise - RC
     - IMPORTANT - while all 4 motors can run at the same time its not advised as it makes them run very slow. - RC
-
+ ### Begin GUI Builder
+   - Made a GUI with dropdown for gestures to train - DN
+   - Instructions for training - DN 
+   - Uses processing GUI Builder 
 
  ### Correctly Take OSC for DTW
   - Added Functions and mapping for 3 motions for DTW - RC
