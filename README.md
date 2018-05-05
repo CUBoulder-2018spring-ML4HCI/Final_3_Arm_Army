@@ -28,7 +28,9 @@
  
  Once in this folder we need to install the dependencies with ```npm install```
  
- Next start the GUI with: ```npm run dev``` you can close the debug window once the GUI opens.
+ Also go into the app directory and run ```npm install```
+ 
+ Then go back into the ArmGUI directory and start the GUI with: ```npm run dev``` you can close the debug window once the GUI opens.
  
  Now a user can train their mappings and start the project with the GUI. Before training Wekinator must be open. 
  
